@@ -1,7 +1,21 @@
 <template name="team">
-  <li class="team">
-    <button class="delete">&times;</button>
- 
-    <span class="text"><strong>{{teamName}}</strong> - {{pct(_id)}} </span>
-  </li>
+  <tr class="team">
+    <td align="center">
+    	<button class="delete">&times;</button>
+    	<span class="text">{{teamName}}</span>
+    </td>
+    <td align="center">
+		<span class="text">{{wins(_id)}} </span>
+	</td>
+	<td align="center">
+		<span class="text">{{losses(_id)}} </span>
+	</td>
+	<td align="center">
+		<span class="text">{{ties(_id)}} </span>
+	</td>
+	<td align="center">
+		<span class="text">{{pct(_id)}} </span>
+	</td>
+
+  </tr>
 </template>
