@@ -41,11 +41,19 @@
             {{> enterTeam}}
         {{/if}} 
         <br>
-        <ul>
+        &nbsp;
+        <table style="width:90%" align="center">
+            <tr>
+                <th>Team Name</th>
+                <th>W</th>
+                <th>L</th>
+                <th>T</th>
+                <th>%</th>
+            </tr>
             {{#each teams}}
                 {{> team}}
             {{/each}}
-        </ul>
+        </table>
     </div>
     
     <!--match tab-->

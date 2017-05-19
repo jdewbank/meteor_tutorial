@@ -150,5 +150,17 @@ header .hide-completed {
     width: 150px;
     clear: both;
   }
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+
+}
+
+.new-team {
+  margin-left: 10px;
+}
+}
  
 }
