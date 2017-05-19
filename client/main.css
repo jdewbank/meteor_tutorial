@@ -94,51 +94,6 @@ form {
   position: relative;
 }
 
-.new-match {
-    border: 1px;
-    padding: 15px;
-}
- 
-.new-match input {
-  box-sizing: border-box;
-  padding: 10px 0;
-  background: transparent;
-  border: none;
-  width: 20%;
-  padding-left: 10px;
-  font-size: 1em;
-}
- 
-.new-match input:focus{
-  outline: 1;
-}
-
-.new-match .submit{
-    
-  padding-left: 0px;
-  display: inline-block;
-  font-size: 24px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  background-color: #4CAF50;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
-}
-
-.new-match .submit:hover{
-   background-color: #3e8e41
-}
-
-.new-match .submit:active{
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
- 
 ul {
   margin: 0;
   padding: 0;
@@ -196,7 +151,4 @@ header .hide-completed {
     clear: both;
   }
  
-  .new-task input {
-    padding-bottom: 5px;
-  }
 }

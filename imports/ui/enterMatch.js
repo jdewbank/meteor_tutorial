@@ -1,7 +1,25 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
+import { Matches } from '../api/matches.js';
+import { Teams } from '../api/matches.js';
+
 import './enterMatch.html';
+
+Template.enterMatch.helpers({
+    matches() {
+        return Matches.find({}, { sort: { createdAt: -1 } } );
+    },
+    matchCount() {
+        return Matches.find({}).count();
+    },
+    teams() {
+        return Teams.find({}, { sort: { createdAt: -1 } } );
+    },
+    teamCount() {
+        return Teams.find({}).count();
+    },
+});
 
 Template.enterMatch.events({  
   'submit .new-match'(event) {

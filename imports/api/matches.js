@@ -24,6 +24,8 @@ Meteor.methods({
             owner: Meteor.userId(),
             username: Meteor.user().username,
         });
+        
+        
     },
     'matches.remove'(matchId){
         check(matchId, String);
@@ -43,10 +45,15 @@ Meteor.methods({
         }
         
         Teams.insert({
-            team,
+            teamName: team,
             createdAt: new Date(),
             owner: Meteor.userId(),
             username: Meteor.user().username,
         });
+    },
+    'teams.remove'(team){
+        check(team, String);
+        console.log(team);
+        Teams.remove(team);
     },
 });
