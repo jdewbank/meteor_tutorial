@@ -3,6 +3,7 @@ import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
  
 export const Matches = new Mongo.Collection('matches');
+export const Teams = new Mongo.Collection('teams'); 
 
 Meteor.methods({
     'matches.insert'(t1, s1, t2, s2) {
@@ -34,4 +35,18 @@ Meteor.methods({
         
         Matches.update(matchId, { $set: { checked: setChecked } });
     }, 
+    'teams.insert'(team) {
+        check(team, String);
+        
+        if(! Meteor.userId()){
+            throw new Meteor.Error('not-authorized');
+        }
+        
+        Teams.insert({
+            team,
+            createdAt: new Date(),
+            owner: Meteor.userId(),
+            username: Meteor.user().username,
+        });
+    },
 });

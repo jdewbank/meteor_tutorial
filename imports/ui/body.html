@@ -2,42 +2,48 @@
     
     
 
-    
+    <!--tabs-->
     <div class="tab" >
         <button class="tablinks" id="team-tab">Teams</button>
         <button class="tablinks" id="match-tab">Matches</button>
-        <span>{{> loginButtons}} </span>
+        <span>{{> loginButtons}}</span>
     </div>
 
+    <!--team tab-->
     <div id="team-container" class="tabcontent">
-        <h3>Team Stuff</h3>
-        <p>Stuff with teams and stuff.</p> 
+        <header>
+            <h1>Team List ({{teamCount}})</h1>
+        </header>
+        {{#if currentUser}}
+            {{> enterTeam}}
+        {{/if}} 
+        
+        <br>
+        <ul>
+            {{#each teams}}
+                {{> team}}
+            {{/each}}
+        </ul>
     </div>
     
-    
+    <!--match tab-->
     <div id="match-container" class="tabcontent" >
         <header>
-            <h1>Match List ({{toDoCount}})</h1>
+            <h1>Match List ({{matchCount}})</h1>
       
-            <label class="hide-completed">
-                <input type="checkbox" />
-                Hide Completed Tasks
-            </label>
-
-
-            <!--{{#if currentUser}}-->
-
-            {{> enterMatch}}
-
-            <!--{{/if}}-->
 
         </header>
- 
+        {{#if currentUser}}
+            {{> enterMatch}}
+        {{/if}} 
+        <br>
         <ul>
             {{#each matches}}
                 {{> match}}
             {{/each}}
         </ul>
     </div>
+    
+    
 </body>
  
