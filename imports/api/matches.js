@@ -4,8 +4,24 @@ import { check } from 'meteor/check';
  
 export const Matches = new Mongo.Collection('matches');
 export const Teams = new Mongo.Collection('teams'); 
+export const Tournaments = new Mongo.Collection('tournaments'); 
 
 Meteor.methods({
+    'tournaments.insert'(tournament){
+        check(tournament, String);
+        
+        if(! Meteor.userId()){
+            throw new Meteor.Error('not-authorized');
+        }
+        
+        Tournaments.insert({
+            title: tournament,            
+            createdAt: new Date(),
+            owner: Meteor.userId(),
+            username: Meteor.user().username,
+        });
+        
+    },
     'matches.insert'(t1, s1, t2, s2) {
         check(t1, String);
         check(t2, String);

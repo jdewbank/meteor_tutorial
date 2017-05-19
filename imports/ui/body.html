@@ -1,14 +1,37 @@
 <body>
-    
-    
 
     <!--tabs-->
     <div class="tab" >
+        <button class="tablinks" id="tournament-tab">Tournaments</button>
         <button class="tablinks" id="team-tab">Teams</button>
         <button class="tablinks" id="match-tab">Matches</button>
         <span>{{> loginButtons}}</span>
     </div>
 
+    <!--tournament tab-->
+    <div id="tournament-container" class="tabcontent">
+        <header>
+            <h1>Tournament Select</h1>
+        </header>
+        {{#if currentUser}}    
+            <form class="new-tournament">
+                <span>
+                    Tournament Name: <input type="text" name="tournament" placeholder="Tournament Name" tabindex="1"/>
+                    <input type="submit" value="Submit" tabindex="2" class="submit">
+                </span>
+            </form>
+        {{/if}} 
+        <br>
+        <ul>
+            {{#each tournaments}}
+                    <li class="team">
+                        <button class="delete">&times;</button>
+                        <span class="text">{{title}}</span>
+                    </li>
+            {{/each}}
+        </ul>
+    </div>
+    
     <!--team tab-->
     <div id="team-container" class="tabcontent">
         <header>
@@ -17,7 +40,6 @@
         {{#if currentUser}}
             {{> enterTeam}}
         {{/if}} 
-        
         <br>
         <ul>
             {{#each teams}}
@@ -30,8 +52,6 @@
     <div id="match-container" class="tabcontent" >
         <header>
             <h1>Match List ({{matchCount}})</h1>
-      
-
         </header>
         {{#if currentUser}}
             {{> enterMatch}}
