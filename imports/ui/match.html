@@ -1,9 +1,24 @@
 <template name="match">
-  <li class="{{#if checked}}checked{{/if}}">
-    <button class="delete">&times;</button>
- 
+  <tr class="{{#if checked}}checked{{/if}}">
+    
     <!--<input type="checkbox" checked="{{checked}}" class="toggle-checked" />-->
  
-    <span class="text"><strong>{{getTeamFromId(t1)}}</strong> - {{s1}} vs. <strong>{{getTeamFromId(t2)}}</strong> - {{s2}} </span>
-  </li>
+    <td>
+    	<span class="text">{{getTeamFromId(t1)}}</span>
+    	<button class="delete">&times;</button>
+    </td>
+    <td>
+    	<span class="text">{{s1}}</span>
+    </td>
+    <td>
+    	<span class="text">vs.</span>
+    </td>
+    <td>
+    	<span class="text">{{getTeamFromId(t2)}}</span>
+    </td>
+    <td>
+    	<span class="text">{{s2}}</span>
+    </td>
+
+  </tr>
 </template>

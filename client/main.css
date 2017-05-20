@@ -152,13 +152,38 @@ header .hide-completed {
   }
 }
 
-table, th, td {
+/*table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
 
+}*/
+
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+
+td {
+  text-align: center;
+}
+
+tr:nth-child(even) {background-color: #F5F5F5}
+
+tr:hover {background-color: #AFEEEE}
+
+th {
+    background-color: #008080;
+    color: white;
 }
 
 .new-team {
+  margin-left: 10px;
+}
+
+.new-tournament {
+  margin-left: 10px;
+}
+
+.new-match {
   margin-left: 10px;
 }
 }

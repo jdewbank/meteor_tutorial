@@ -65,11 +65,19 @@
             {{> enterMatch}}
         {{/if}} 
         <br>
-        <ul>
+        &nbsp;
+        <table style="width:90%" align="center">
+            <tr>
+                <th>Team 1 Name</th>
+                <th>Team 1 Score</th>
+                <th></th>
+                <th>Team 2 Name</th>
+                <th>Team 2 Score</th>
+            </tr>
             {{#each matches}}
                 {{> match}}
             {{/each}}
-        </ul>
+        </table>
     </div>
     
     
