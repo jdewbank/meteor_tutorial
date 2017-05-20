@@ -6,6 +6,7 @@
         <button class="tablinks" id="team-tab">Teams</button>
         <button class="tablinks" id="match-tab">Matches</button>
         <span>{{> loginButtons}}</span>
+        <span id="currentTournament">{{currentTournament}} (change)</span>
     </div>
 
     <!--tournament tab-->
@@ -25,8 +26,8 @@
         <ul>
             {{#each tournaments}}
                 <li class="team">
-                    <button class="delete" id="tDelete" value="{{_id}}">&times;</button>
-                    <span class="text">{{title}}</span>
+                    <button class="delete" id="tournamentDelete" value="{{_id}}">&times;</button>
+                    <span class="tournament" title="{{_id}}">{{title}}</span>
                 </li>
             {{/each}}
         </ul>
