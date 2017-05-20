@@ -37,7 +37,7 @@ Template.team.helpers({
         
         if(total === 0)
             return 0.0;
-        return (wins / total);
+        return (wins / total).toFixed(3);
            
    },
    wins(id) {
