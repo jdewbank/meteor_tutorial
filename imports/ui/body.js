@@ -52,18 +52,21 @@ Template.body.events({
         }
     },  
     'submit .new-tournament'(event) {
-    // Prevent default browser form submit
-    event.preventDefault();
- 
-    // Get value from form element
-    const target = event.target;
-    const tournament = target.tournament.value;
- 
-    
-    // Insert a task into the collection
-    Meteor.call('tournaments.insert', tournament);
- 
-    // Clear form
-    target.tournament.value = '';
-  },
+        // Prevent default browser form submit
+        event.preventDefault();
+
+        // Get value from form element
+        const target = event.target;
+        const tournament = target.tournament.value;
+
+
+        // Insert a task into the collection
+        Meteor.call('tournaments.insert', tournament);
+
+        // Clear form
+        target.tournament.value = '';
+    },
+    'click .delete'(event) {
+        Meteor.call('tournaments.remove', event.target.value);
+    },
 });

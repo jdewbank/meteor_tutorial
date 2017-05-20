@@ -24,10 +24,10 @@
         <br>
         <ul>
             {{#each tournaments}}
-                    <li class="team">
-                        <button class="delete">&times;</button>
-                        <span class="text">{{title}}</span>
-                    </li>
+                <li class="team">
+                    <button class="delete" id="tDelete" value="{{_id}}">&times;</button>
+                    <span class="text">{{title}}</span>
+                </li>
             {{/each}}
         </ul>
     </div>
