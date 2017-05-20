@@ -14,23 +14,22 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
         
-        var m = [];
-        
-        Tournaments.insert({
+        var tID = Tournaments.insert({
             title: tournament,            
             createdAt: new Date(),
             owner: Meteor.userId(),
             username: Meteor.user().username,
-            matches: m,
+            matches: [],
         });
-        console.log(Tournaments.findOne({title:tournament}));
+        
+        return tID;
     },
     'tournaments.remove'(tournamentID){
         check(tournamentID, String);
         Tournaments.remove(tournamentID);
     },
     
-    'matches.insert'(t1, s1, t2, s2) {
+    'matches.insert'(t1, s1, t2, s2, tID) {
         check(t1, String);
         check(t2, String);
         
@@ -44,12 +43,13 @@ Meteor.methods({
             s1,
             t2,
             s2,
+            tID,
             createdAt: new Date(),
             owner: Meteor.userId(),
             username: Meteor.user().username,
         });
         
-        var t = Tournaments.findOne({});
+        var t = Tournaments.findOne({_id: tID});
         t.matches.push(mID);
         
     },
@@ -63,14 +63,16 @@ Meteor.methods({
         
         Matches.update(matchId, { $set: { checked: setChecked } });
     }, 
-    'teams.insert'(team) {
+    'teams.insert'(team, tID) {
         check(team, String);
+        console.log(Tournaments.find({tID: tID}));
         
         if(! Meteor.userId()){
             throw new Meteor.Error('not-authorized');
         }
         
         Teams.insert({
+            tID,
             teamName: team,
             createdAt: new Date(),
             owner: Meteor.userId(),

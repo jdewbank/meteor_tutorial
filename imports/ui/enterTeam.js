@@ -16,7 +16,7 @@ Template.enterTeam.events({
     console.log(team);
  
     // Insert a task into the collection
-    Meteor.call('teams.insert', team);
+    Meteor.call('teams.insert', team, Session.get('tID'));
  
     // Clear form
     target.team.value = '';

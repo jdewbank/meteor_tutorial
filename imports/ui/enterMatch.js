@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { Session } from 'meteor/session';
 
 import { Matches } from '../api/matches.js';
 import { Teams } from '../api/matches.js';
@@ -8,16 +9,16 @@ import './enterMatch.html';
 
 Template.enterMatch.helpers({
     matches() {
-        return Matches.find({}, { sort: { createdAt: -1 } } );
+        return Matches.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
     },
     matchCount() {
-        return Matches.find({}).count();
+        return Matches.find({tID: Session.get('tID')}).count();
     },
     teams() {
-        return Teams.find({}, { sort: { createdAt: -1 } } );
+        return Teams.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
     },
     teamCount() {
-        return Teams.find({}).count();
+        return Teams.find({tID: Session.get('tID')}).count();
     },
 });
 
@@ -32,9 +33,10 @@ Template.enterMatch.events({
     const t2 = target.team2.value;
     const s1 = target.score1.value;
     const s2 = target.score2.value;
+    tID = Session.get('tID');
  
     // Insert a task into the collection
-    Meteor.call('matches.insert', t1, s1, t2, s2);
+    Meteor.call('matches.insert', t1, s1, t2, s2, tID);
  
     // Clear form
     target.team1.value = '';

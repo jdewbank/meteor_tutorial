@@ -22,3 +22,4 @@ reactive-dict@1.1.8
 accounts-ui
 accounts-password
 shell-server
+session
