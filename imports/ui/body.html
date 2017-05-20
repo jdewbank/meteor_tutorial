@@ -5,8 +5,8 @@
         <button class="tablinks" id="tournament-tab">Tournaments</button>
         <button class="tablinks" id="team-tab">Teams</button>
         <button class="tablinks" id="match-tab">Matches</button>
-        <span>{{> loginButtons}}</span>
-        <span id="currentTournament">{{currentTournament}} (change)</span>
+        <span id="login">{{> loginButtons}}</span>
+        <span id="currentTournament">{{currentTournament}}</span>
     </div>
 
     <!--tournament tab-->
@@ -39,7 +39,9 @@
             <h1>Team List ({{teamCount}})</h1>
         </header>
         {{#if currentUser}}
-            {{> enterTeam}}
+            {{#if tournamentSelected}}
+                {{> enterTeam}}
+            {{/if}}
         {{/if}} 
         <br>
         &nbsp;
@@ -63,7 +65,9 @@
             <h1>Match List ({{matchCount}})</h1>
         </header>
         {{#if currentUser}}
-            {{> enterMatch}}
+            {{#if tournamentSelected}}
+                {{> enterMatch}}
+            {{/if}}
         {{/if}} 
         <br>
         &nbsp;
