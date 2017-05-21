@@ -18,6 +18,9 @@ Template.body.onCreated(function bodyOnCreated() {
 });
  
 Template.body.helpers({
+    admin() {
+        return Roles.userIsInRole(Meteor.userId(), ['admin']);
+    },
     matches() {
         return Matches.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
     },
@@ -66,8 +69,7 @@ Template.body.events({
             document.getElementById('match-container').style.display = "block";
         }
     },  
-    'click .select-tournament'(event){
-       console.log(event);
+    'change .tournaments'(event){
         Session.set('tID', event.target.value);
     },
     'submit .new-tournament'(event) {
@@ -80,7 +82,6 @@ Template.body.events({
         
         // Insert a task into the collection
         Meteor.call('tournaments.insert', tournament, function(error, result){
-            console.log(result);
             Session.set('tID', result);
         });
 

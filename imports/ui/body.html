@@ -2,11 +2,41 @@
 
     <!--tabs-->
     <div class="tab" >
+        {{#if admin}} 
+        <button class="tablinks" id="admin-tab">Admin</button>
+        {{/if}}
         <button class="tablinks" id="tournament-tab">Tournaments</button>
         <button class="tablinks" id="team-tab">Teams</button>
         <button class="tablinks" id="match-tab">Matches</button>
         <span id="login">{{> loginButtons}}</span>
         <span id="currentTournament">{{currentTournament}}</span>
+    </div>
+    
+    <!--admin tab-->
+    <div id="admin-container" class="tabcontent">
+        <header>
+            <h1>Moderators</h1>
+        </header>
+        &nbsp;
+        {{#if currentUser}}    
+            <form class="new-tournament">
+                <span>
+                    Tournament Name: <input type="text" name="tournament" placeholder="Tournament Name" tabindex="1"/>
+                    <input type="submit" value="Submit" tabindex="2" class="submit">
+                </span>
+            </form>
+        {{/if}} 
+        <br>
+        <form action="" class="select-tournament">
+            <ul>
+            {{#each tournaments}}
+                <li>
+                <input class="tournaments" type="radio" name="tournament" value="{{_id}}"> {{title}}
+                <button class="delete" id="tournamentDelete" value="{{_id}}">&times;</button><br>
+                </li>
+            {{/each}}
+            </ul>
+        </form>
     </div>
 
     <!--tournament tab-->

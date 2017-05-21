@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { Roles } from 'meteor/alanning:roles';
  
 export const Matches = new Mongo.Collection('matches');
 export const Teams = new Mongo.Collection('teams'); 
@@ -11,8 +12,18 @@ Meteor.methods({
         check(tournament, String);
         
         if(! Meteor.userId()){
-            throw new Meteor.Error('not-authorized');
+            throw new Meteor.Error('not logged in');
         }
+        
+        //Only admins can add tournaments
+        const isAdmin = Roles.userIsInRole(Meteor.userId(),
+            ['admin']);
+        if (! isAdmin) {
+          throw new Meteor.Error('unauthorized',
+            'Only admin can add tournaments.');
+        }
+        
+        
         
         var tID = Tournaments.insert({
             title: tournament,            
@@ -22,7 +33,6 @@ Meteor.methods({
             matches: [],
             teams: [],
         });
-        
         return tID;
     },
     'tournaments.remove'(tournamentID){
