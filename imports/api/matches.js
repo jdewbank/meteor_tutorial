@@ -20,6 +20,7 @@ Meteor.methods({
             owner: Meteor.userId(),
             username: Meteor.user().username,
             matches: [],
+            teams: [],
         });
         
         return tID;
@@ -37,6 +38,8 @@ Meteor.methods({
         if(! Meteor.userId()){
             throw new Meteor.Error('not-authorized');
         }
+        
+//        var match_teams = [t1, t2];
         
         var mID = Matches.insert({
             t1,
@@ -65,19 +68,20 @@ Meteor.methods({
     }, 
     'teams.insert'(team, tID) {
         check(team, String);
-        console.log(Tournaments.find({tID: tID}));
         
         if(! Meteor.userId()){
             throw new Meteor.Error('not-authorized');
         }
         
-        Teams.insert({
+        var teamID = Teams.insert({
             tID,
             teamName: team,
             createdAt: new Date(),
             owner: Meteor.userId(),
             username: Meteor.user().username,
         });
+        
+        Tournaments.findOne({_id: tID}).matches.push(teamID);
     },
     'teams.remove'(team){
         check(team, String);

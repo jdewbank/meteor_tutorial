@@ -42,6 +42,11 @@ Template.body.helpers({
             return "No Tournament Selected";
         }
     },
+    tournamentSelected() {
+        if(Tournaments.findOne({_id : Session.get('tID')}))
+            return true;
+        return false;
+    },
 });
 
 Template.body.events({
