@@ -136,6 +136,9 @@ li.private {
 header .hide-completed {
   float: right;
 }
+
+p {margin-left: 10px;
+}
  
 .toggle-private {
   margin-left: 5px;

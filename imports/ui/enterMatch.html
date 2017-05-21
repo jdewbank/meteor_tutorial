@@ -2,26 +2,29 @@
     <form class="new-match">
         <span>
             
+            Round: <input type="number" name="round" placeholder="0" tabindex="1"/>
+            <br>
+            
             Team 1:
-            <select id="team1" tabindex="1">
+            <select id="team1" tabindex="2">
                 <option value="" selected>Pick a Team</option>
                 {{#each teams}}
                 <option value="{{_id}}">{{teamName}}</option>
                 {{/each}}
             </select>    
             
-            Score: <input type="number" name="score1" placeholder="0" tabindex="3"/>
-            <input type="submit" value="Submit" tabindex="5" class="submit"><br>
+            Score: <input type="number" name="score1" placeholder="0" tabindex="4"/>
+            <input type="submit" value="Submit" tabindex="6" class="submit"><br>
             
             Team 2:
-            <select id="team2" tabindex="2">
+            <select id="team2" tabindex="3">
                 <option value="" selected>Pick a Team</option>
                 {{#each teams}}
                 <option value="{{_id}}">{{teamName}}</option>
                 {{/each}}
             </select> 
             
-            Score: <input type="number" name="score2" placeholder="0" tabindex="4"/><br>
+            Score: <input type="number" name="score2" placeholder="0" tabindex="5"/><br>
         </span>
     </form>
 </template>

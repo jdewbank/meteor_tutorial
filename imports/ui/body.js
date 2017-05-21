@@ -66,9 +66,9 @@ Template.body.events({
             document.getElementById('match-container').style.display = "block";
         }
     },  
-    'click .tournament'(event){
-//        console.log(event);
-        Session.set('tID', event.target.title);
+    'click .select-tournament'(event){
+       console.log(event);
+        Session.set('tID', event.target.value);
     },
     'submit .new-tournament'(event) {
         // Prevent default browser form submit

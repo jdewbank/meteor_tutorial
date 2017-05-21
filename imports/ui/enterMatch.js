@@ -29,6 +29,7 @@ Template.enterMatch.events({
  
     // Get value from form element
     const target = event.target;
+    const rd = target.round.value;
     const t1 = target.team1.value;
     const t2 = target.team2.value;
     const s1 = target.score1.value;
@@ -36,9 +37,10 @@ Template.enterMatch.events({
     tID = Session.get('tID');
  
     // Insert a task into the collection
-    Meteor.call('matches.insert', t1, s1, t2, s2, tID);
+    Meteor.call('matches.insert', rd, t1, s1, t2, s2, tID);
  
     // Clear form
+    target.round.value = '';
     target.team1.value = '';
     target.team2.value = '';
     target.score1.value = '';

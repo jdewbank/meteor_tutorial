@@ -14,6 +14,10 @@
         <header>
             <h1>Tournament Select</h1>
         </header>
+        <p>
+            <strong>Please enter a new tournament or select an existing tournament to view.</strong>
+        </p>
+        &nbsp;
         {{#if currentUser}}    
             <form class="new-tournament">
                 <span>
@@ -23,14 +27,16 @@
             </form>
         {{/if}} 
         <br>
-        <ul>
+        <form action="" class="select-tournament">
+            <ul>
             {{#each tournaments}}
-                <li class="team">
-                    <button class="delete" id="tournamentDelete" value="{{_id}}">&times;</button>
-                    <span class="tournament" title="{{_id}}">{{title}}</span>
+                <li>
+                <input class="tournaments" type="radio" name="tournament" value="{{_id}}"> {{title}}
+                <button class="delete" id="tournamentDelete" value="{{_id}}">&times;</button><br>
                 </li>
             {{/each}}
-        </ul>
+            </ul>
+        </form>
     </div>
     
     <!--team tab-->
@@ -73,6 +79,7 @@
         &nbsp;
         <table style="width:90%" align="center">
             <tr>
+                <th>Round</th>
                 <th>Team 1 Name</th>
                 <th>Team 1 Score</th>
                 <th></th>

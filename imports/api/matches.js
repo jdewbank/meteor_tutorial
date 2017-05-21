@@ -30,7 +30,7 @@ Meteor.methods({
         Tournaments.remove(tournamentID);
     },
     
-    'matches.insert'(t1, s1, t2, s2, tID) {
+    'matches.insert'(rd, t1, s1, t2, s2, tID) {
         check(t1, String);
         check(t2, String);
         
@@ -42,6 +42,7 @@ Meteor.methods({
 //        var match_teams = [t1, t2];
         
         var mID = Matches.insert({
+            rd,
             t1,
             s1,
             t2,
