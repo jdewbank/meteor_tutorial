@@ -81,8 +81,16 @@ Meteor.methods({
     },
     'tournaments.remove'(tournamentID){
         check(tournamentID, String);
+
+        var users = Roles.getUsersInRole('editor', tournamentID);
+        
+        var uIDs = [];
+        users.forEach(function(user){
+            uIDs.push(user._id);
+        });
+      
         Roles.removeUsersFromRoles(
-                Roles.getUsersInRole('editor', tournamentID),
+                uIDs,
                 'editor',
                 tournamentID
         );
