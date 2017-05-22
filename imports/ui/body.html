@@ -15,27 +15,40 @@
     <!--admin tab-->
     <div id="admin-container" class="tabcontent">
         <header>
-            <h1>Moderators</h1>
+            <h1>Users</h1>
         </header>
         &nbsp;
-        {{#if currentUser}}    
-            <form class="new-tournament">
-                <span>
-                    Tournament Name: <input type="text" name="tournament" placeholder="Tournament Name" tabindex="1"/>
-                    <input type="submit" value="Submit" tabindex="2" class="submit">
-                </span>
-            </form>
-        {{/if}} 
         <br>
         <form action="" class="select-tournament">
-            <ul>
-            {{#each tournaments}}
-                <li>
-                <input class="tournaments" type="radio" name="tournament" value="{{_id}}"> {{title}}
-                <button class="delete" id="tournamentDelete" value="{{_id}}">&times;</button><br>
-                </li>
+            
+                       
+            
+
+            <table style="width:90%" align="center">
+                <th>Username</th>
+                <th>Tournament Permissions</th>
+                <th>Add Tournament</th>
+            {{#each users}}
+                <tr class="user-listing" title="{{_id}}">
+                    
+                    <!--username-->
+                    <td><strong>{{username}}</strong></td>
+                    <!--tournaments with editor permissions-->
+                    <td>
+                        {{#each editableTournaments _id}}
+                            {{getTournamentFromId(this)}}
+                            <button class="delete" id="editorDelete" value="{{this}}" >&times;</button><br><br>
+                        {{/each}}
+                    </td>
+                    <td>
+                        {{#each nonEditableTournaments _id}}
+                            <button class="add-editor" value="{{this}}">{{getTournamentFromId(this)}}</button><br>
+                        {{/each}}
+                    </td>
+                    
+                </tr>
             {{/each}}
-            </ul>
+            </table>
         </form>
     </div>
 
@@ -48,13 +61,15 @@
             <strong>Please enter a new tournament or select an existing tournament to view.</strong>
         </p>
         &nbsp;
-        {{#if currentUser}}    
-            <form class="new-tournament">
-                <span>
-                    Tournament Name: <input type="text" name="tournament" placeholder="Tournament Name" tabindex="1"/>
-                    <input type="submit" value="Submit" tabindex="2" class="submit">
-                </span>
-            </form>
+        {{#if currentUser}}   
+            {{#if admin}} 
+                <form class="new-tournament">
+                    <span>
+                        Tournament Name: <input type="text" name="tournament" placeholder="Tournament Name" tabindex="1"/>
+                        <input type="submit" value="Submit" tabindex="2" class="submit">
+                    </span>
+                </form>
+            {{/if}}
         {{/if}} 
         <br>
         <form action="" class="select-tournament">
@@ -75,7 +90,7 @@
             <h1>Team List ({{teamCount}})</h1>
         </header>
         {{#if currentUser}}
-            {{#if tournamentSelected}}
+            {{#if tournamentPermission}}
                 {{> enterTeam}}
             {{/if}}
         {{/if}} 

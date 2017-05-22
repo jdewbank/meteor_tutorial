@@ -7,7 +7,51 @@ export const Matches = new Mongo.Collection('matches');
 export const Teams = new Mongo.Collection('teams'); 
 export const Tournaments = new Mongo.Collection('tournaments'); 
 
+if (Meteor.isServer) {
+    // This code only runs on the server
+    Meteor.publish('matches', function matchesPublication() {
+        return Matches.find();
+    });
+    Meteor.publish('teams', function teamsPublication() {
+        return Teams.find();
+    });
+    Meteor.publish('tournaments', function tournamentsPublication() {
+        return Tournaments.find();
+    });
+    Meteor.publish('roles', function (){
+        return Meteor.roles.find();
+    });
+    Meteor.publish('users', function (){
+        return Meteor.users.find();
+    });
+}
+
 Meteor.methods({
+    
+    'users.addEditor' (uID, tournament){
+        
+        const isAdmin = Roles.userIsInRole(Meteor.userId(),
+            ['admin']);
+        if (! isAdmin) {
+          throw new Meteor.Error('unauthorized',
+            'Only admin can add editing permissions.');
+        }
+        
+        
+        Roles.addUsersToRoles(uID, 'editor', tournament);
+    },
+    'users.removeEditor' (uID, tournament){
+        
+        const isAdmin = Roles.userIsInRole(Meteor.userId(),
+            ['admin']);
+        if (! isAdmin) {
+          throw new Meteor.Error('unauthorized',
+            'Only admin can add editing permissions.');
+        }
+        
+        
+        Roles.removeUsersFromRoles(uID, 'editor', tournament);
+    },
     'tournaments.insert'(tournament){
         check(tournament, String);
         
@@ -37,6 +81,11 @@ Meteor.methods({
     },
     'tournaments.remove'(tournamentID){
         check(tournamentID, String);
+        Roles.removeUsersFromRoles(
+                Roles.getUsersInRole('editor', tournamentID),
+                'editor',
+                tournamentID
+        );
         Tournaments.remove(tournamentID);
     },
     
@@ -96,7 +145,6 @@ Meteor.methods({
     },
     'teams.remove'(team){
         check(team, String);
-        console.log(team);
         Teams.remove(team);
     },
 });
