@@ -1,12 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
  
-import { Matches } from '../api/matches.js';
+import { Matches } from '/imports/api/api.js';
 import './team.html';
+
  
 Template.team.events({
     'click .delete'() {
-        console.log(this._id);
         Meteor.call('teams.remove', this._id);
     },
 });

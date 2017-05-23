@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
  
-import { Teams } from '../api/matches.js';
+import { Teams } from '/imports/api/api.js';
 
 import './match.html';
  

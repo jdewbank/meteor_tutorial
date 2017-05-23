@@ -1,0 +1,27 @@
+    <!--team tab-->
+<template name="teams">
+    <div id="team-container" class="tabcontent">
+        <header>
+            <h1>Team List ({{teamCount}})</h1>
+        </header>
+        {{#if currentUser}}
+            {{#if tournamentPermission}}
+                {{> enterTeam}}
+            {{/if}}
+        {{/if}} 
+        <br>
+        &nbsp;
+        <table style="width:90%" align="center">
+            <tr>
+                <th>Team Name</th>
+                <th>W</th>
+                <th>L</th>
+                <th>T</th>
+                <th>%</th>
+            </tr>
+            {{#each teams}}
+                {{> team}}
+            {{/each}}
+        </table>
+    </div>
+</template>

@@ -4,15 +4,15 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { Session } from 'meteor/session';
 import { Roles } from 'meteor/alanning:roles';
 
-import { Matches } from '../api/matches.js';
-import { Tournaments } from '../api/matches.js';
-import { Teams } from '../api/matches.js';
+import { Matches } from '/imports/api/api.js';
+import { Tournaments } from '/imports/api/api.js';
+import { Teams } from '/imports/api/api.js';
 
-import './match.js';
-import './team.js';
-import './body.html';
-import './enterMatch.js';
-import './enterTeam.js';
+import './templates/match.js';
+import './templates/team.js';
+//import './templates/body.html';
+import './templates/enterMatch.js';
+import './templates/enterTeam.js';
  
 Template.body.onCreated(function bodyOnCreated() {
     this.state = new ReactiveDict();
@@ -24,15 +24,24 @@ Template.body.onCreated(function bodyOnCreated() {
     Meteor.subscribe('users');
 });
  
-Template.body.helpers({
-//    permissions stuff
-    admin() {
+Template.registerHelper( 'tournamentPermission', () => {
+        var tournament = Tournaments.findOne({_id : Session.get('tID')});
+        if(!tournament)
+            return false;
+        return Roles.userIsInRole(Meteor.userId(), 'editor', tournament._id);
+}); 
+
+Template.registerHelper( 'admin', () => {
         return Roles.userIsInRole(Meteor.userId(), ['admin']);
-    },
+}); 
+
+ 
+Template.admin.helpers({
     users() {
         return Meteor.users.find({});
     },
     editableTournaments(uID) {
+        
         return Roles.getGroupsForUser(uID, 'editor');
     },
     nonEditableTournaments(uID) {
@@ -40,8 +49,6 @@ Template.body.helpers({
         var net = [];
         var et = Roles.getGroupsForUser(uID, 'editor');
         
-//        console.log(net);
-//        console.log(et);
         allTournaments.forEach(function (tournament){
             if(!et.includes(tournament._id)){
                 net.push(tournament._id);
@@ -49,21 +56,6 @@ Template.body.helpers({
         });
         return net;
     },
-//    matches
-    matches() {
-        return Matches.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
-    },
-    matchCount() {
-        return Matches.find({tID: Session.get('tID')}).count();
-    },
-//    teams
-    teams() {
-        return Teams.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
-    },
-    teamCount() {
-        return Teams.find({tID: Session.get('tID')}).count();
-    },
-//    tournaments
     getTournamentFromId(id) {
         if(Tournaments.find(id).count() > 0){
             return Tournaments.findOne(id).title;
@@ -71,46 +63,39 @@ Template.body.helpers({
             return id;
         }
     },
+});
+
+Template.tournaments.helpers({
     tournaments() {
         return Tournaments.find({}, { sort: { createdAt: -1 } } );
     },
-    currentTournament() {
-        var tournament = Tournaments.findOne({_id : Session.get('tID')});
-        if(tournament){
-            return tournament.title;            
-        }
-        else{
-            return "No Tournament Selected";
-        }
+});
+
+Template.matches.helpers({
+    matches() {
+        return Matches.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
     },
-    tournamentPermission() {
-        var tournament = Tournaments.findOne({_id : Session.get('tID')});
-        if(!tournament)
-            return false;
-        return Roles.userIsInRole(Meteor.userId(), 'editor', tournament._id);
+    matchCount() {
+        return Matches.find({tID: Session.get('tID')}).count();
+    },
+    teams() {
+        return Teams.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
     },
 });
 
-Template.body.events({
+Template.teams.helpers({
+    teams() {
+        return Teams.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
+    },
+    teamCount() {
+        return Teams.find({tID: Session.get('tID')}).count();
+    },
+    
+});
+ 
 
-    'click .tablinks'(event){
-        
-        document.getElementById('team-container').style.display = "none";
-        document.getElementById('match-container').style.display = "none";
-        document.getElementById('tournament-container').style.display = "none";
-        document.getElementById('admin-container').style.display = "none";
-        
-        
-        if(event.target.id === 'team-tab'){
-            document.getElementById('team-container').style.display = "block";
-        } else if(event.target.id === 'tournament-tab'){
-            document.getElementById('tournament-container').style.display = "block";
-        } else if(event.target.id === 'match-tab'){
-            document.getElementById('match-container').style.display = "block";
-        } else if(event.target.id === 'admin-tab'){
-            document.getElementById('admin-container').style.display = "block";
-        }
-    },  
+
+Template.tournaments.events({
     'change .tournaments'(event){
         Session.set('tID', event.target.value);
     },
@@ -121,18 +106,21 @@ Template.body.events({
         // Get value from form element
         const target = event.target;
         const tournament = target.tournament.value;
-        
+
         // Insert a task into the collection
         Meteor.call('tournaments.insert', tournament, function(error, result){
             Session.set('tID', result);
         });
 
         target.tournament.value = '';
-        
+
     },
     'click #tournamentDelete'(event) {
         Meteor.call('tournaments.remove', event.target.value);
     },
+});
+
+Template.admin.events({
     'click #editorDelete'(event) {
         event.preventDefault();
 //        TODO - Fix this - need to find a way to get the UID to be deleted.
@@ -143,5 +131,4 @@ Template.body.events({
 //        TODO - Fix this too
         Meteor.call('users.addEditor', event.target.parentElement.parentElement.title, event.target.value);
     },
-    
 });

@@ -2,8 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 
-import { Matches } from '../api/matches.js';
-import { Teams } from '../api/matches.js';
+import { Matches } from '/imports/api/api.js';
+import { Teams } from '/imports/api/api.js';
 
 import './enterMatch.html';
 

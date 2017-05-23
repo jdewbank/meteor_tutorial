@@ -1,3 +1,24 @@
 <head>
   <title>Stats Machine 0.0</title>
 </head>
+
+<template name="layout">
+    <body>
+        
+        <div class="tab" >
+            {{#if admin}} 
+                <button class="tablinks" id="admin">Admin</button>
+            {{/if}}
+            <button class="tablinks" id="tournaments">Tournaments</button>
+            <button class="tablinks" id="teams">Teams</button>
+            <button class="tablinks" id="matches">Matches</button>
+            <span id="login">{{> loginButtons}}</span>
+            <span id="currentTournament">{{currentTournament}}</span>
+        </div>
+        
+        <div class="container-fluid">
+           {{> yield}} 
+        </div>
+    </body>
+</template>
+

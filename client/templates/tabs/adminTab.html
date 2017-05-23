@@ -1,0 +1,37 @@
+<!--admin tab-->
+<template name="admin">
+    <div id="admin-container" class="tabcontent">
+        <header>
+            <h1>Users</h1>
+        </header>
+        &nbsp;
+        <br>
+        <form action="" class="select-tournament">
+
+            <table style="width:90%" align="center">
+                <th>Username</th>
+                <th>Tournament Permissions</th>
+                <th>Add Tournament</th>
+                {{#each users}}
+                    <tr class="user-listing" title="{{_id}}">
+                        <!--username-->
+                        <td><strong>{{username}}</strong></td>
+                        <!--tournaments with editor permissions-->
+                        <td>
+                            {{#each editableTournaments _id}}
+                                {{getTournamentFromId(this)}}
+                                <button class="delete" id="editorDelete" value="{{this}}" >&times;</button><br>
+                            {{/each}}
+                        </td>
+                        <td>
+                            {{#each nonEditableTournaments _id}}
+                                <button class="add-editor" value="{{this}}">{{getTournamentFromId(this)}}</button><br>
+                            {{/each}}
+                        </td>
+
+                    </tr>
+                {{/each}}
+            </table>
+        </form>
+    </div>
+</template>

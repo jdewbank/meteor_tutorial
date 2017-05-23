@@ -1,0 +1,29 @@
+    
+<!--match tab-->
+<template name="matches">
+    <div id="match-container" class="tabcontent" >
+        <header>
+            <h1>Match List ({{matchCount}})</h1>
+        </header>
+        {{#if currentUser}}
+            {{#if tournamentPermission}}
+                {{> enterMatch}}
+            {{/if}}
+        {{/if}} 
+        <br>
+        &nbsp;
+        <table style="width:90%" align="center">
+            <tr>
+                <th>Round</th>
+                <th>Team 1 Name</th>
+                <th>Team 1 Score</th>
+                <th></th>
+                <th>Team 2 Name</th>
+                <th>Team 2 Score</th>
+            </tr>
+            {{#each matches}}
+                {{> match}}
+            {{/each}}
+        </table>
+    </div>
+</template>

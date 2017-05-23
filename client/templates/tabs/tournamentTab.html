@@ -1,0 +1,33 @@
+<!--tournament tab -->
+<template name="tournaments">
+    <div id="tournament-container" class="tabcontent">
+        <header>
+            <h1>Tournament Select</h1>
+        </header>
+        <p>
+            <strong>Please enter a new tournament or select an existing tournament to view.</strong>
+        </p>
+        &nbsp;
+        {{#if currentUser}}   
+            {{#if admin}} 
+                <form class="new-tournament">
+                    <span>
+                        Tournament Name: <input type="text" name="tournament" placeholder="Tournament Name" tabindex="1"/>
+                        <input type="submit" value="Submit" tabindex="2" class="submit">
+                    </span>
+                </form>
+            {{/if}}
+        {{/if}} 
+        <br>
+        <form action="" class="select-tournament">
+            <ul>
+            {{#each tournaments}}
+                <li>
+                <input class="tournaments" type="radio" name="tournament" value="{{_id}}"> {{title}}
+                <button class="delete" id="tournamentDelete" value="{{_id}}">&times;</button><br>
+                </li>
+            {{/each}}
+            </ul>
+        </form>
+    </div>
+</template>
