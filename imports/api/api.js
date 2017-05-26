@@ -94,6 +94,11 @@ Meteor.methods({
                 'editor',
                 tournamentID
         );
+
+        Teams.remove({tID: tournamentID});
+        Matches.remove({tID: tournamentID});
+        
+
         Tournaments.remove(tournamentID);
     },
     
