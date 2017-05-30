@@ -108,10 +108,10 @@ Meteor.methods({
         
         
         if(! Meteor.userId()){
-            throw new Meteor.Error('not-authorized');
+          throw new Meteor.Error('unauthorized',
+            'Not logged in.');
         }
         
-//        var match_teams = [t1, t2];
         
         var mID = Matches.insert({
             rd,
@@ -139,15 +139,17 @@ Meteor.methods({
         
         Matches.update(matchId, { $set: { checked: setChecked } });
     }, 
-    'teams.insert'(team, tID) {
+    'teams.insert'(team, tID, players) {
         check(team, String);
         
         if(! Meteor.userId()){
-            throw new Meteor.Error('not-authorized');
+            throw new Meteor.Error('unauthorized',
+              'Not logged in.');
         }
         
         var teamID = Teams.insert({
             tID,
+            players,
             teamName: team,
             createdAt: new Date(),
             owner: Meteor.userId(),
@@ -158,6 +160,12 @@ Meteor.methods({
     },
     'teams.remove'(team){
         check(team, String);
+        
+        if(! Meteor.userId()){
+            throw new Meteor.Error('unauthorized',
+              'Not logged in.');
+        }
+        
         Teams.remove(team);
     },
 });

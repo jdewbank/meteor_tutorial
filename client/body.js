@@ -10,10 +10,10 @@ import { Teams } from '/imports/api/api.js';
 
 import './templates/match.js';
 import './templates/team.js';
-//import './templates/body.html';
-import './templates/enterMatch.js';
-import './templates/enterTeam.js';
- 
+import './templates/entry/enterMatch.js';
+import './templates/entry/enterTeam.js';
+
+
 Template.body.onCreated(function bodyOnCreated() {
     this.state = new ReactiveDict();
     
@@ -71,27 +71,9 @@ Template.tournaments.helpers({
     },
 });
 
-Template.matches.helpers({
-    matches() {
-        return Matches.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
-    },
-    matchCount() {
-        return Matches.find({tID: Session.get('tID')}).count();
-    },
-    teams() {
-        return Teams.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
-    },
-});
 
-Template.teams.helpers({
-    teams() {
-        return Teams.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
-    },
-    teamCount() {
-        return Teams.find({tID: Session.get('tID')}).count();
-    },
-    
-});
+
+
  
 
 

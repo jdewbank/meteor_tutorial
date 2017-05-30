@@ -61,7 +61,7 @@ div.tab button.active {
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
-    max-width: 600px;
+    max-width: 50%;
     margin: 0 auto;
     float: none;
     min-height: 100%;
@@ -119,55 +119,20 @@ li {
 li .text {
   margin-left: 10px;
 }
- 
-li.checked {
-  color: #888;
-}
- 
-li.checked .text {
-  text-decoration: line-through;
-}
- 
-li.private {
-  background: #eee;
-  border-color: #ddd;
-}
- 
-header .hide-completed {
-  float: right;
+
+p {
+    margin-left: 10px;
 }
 
-p {margin-left: 10px;
-}
  
-.toggle-private {
-  margin-left: 5px;
-}
- 
-@media (max-width: 600px) {
-  li {
-    padding: 12px 15px;
-  }
- 
-  .search {
-    width: 150px;
-    clear: both;
-  }
-}
 
-/*table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
 
-}*/
 
 th, td {
     border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
-th, td {
-  text-align: center;
-}
 
 tr:nth-child(even) {background-color: #F5F5F5}
 
@@ -178,9 +143,9 @@ th {
     color: white;
 }
 
-.new-team {
-  margin-left: 10px;
-}
+/*.new-team {
+  margin: 0 auto;
+}*/
 
 .new-tournament {
   margin-left: 10px;
