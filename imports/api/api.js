@@ -52,6 +52,7 @@ Meteor.methods({
         
         Roles.removeUsersFromRoles(uID, 'editor', tournament);
     },
+    
     'tournaments.insert'(tournament){
         check(tournament, String);
         
@@ -84,6 +85,7 @@ Meteor.methods({
 
         var users = Roles.getUsersInRole('editor', tournamentID);
         
+        //remove editing permissions for deleted tournament
         var uIDs = [];
         users.forEach(function(user){
             uIDs.push(user._id);
@@ -95,10 +97,11 @@ Meteor.methods({
                 tournamentID
         );
 
+        //remove matches and teams for this tournament
         Teams.remove({tID: tournamentID});
         Matches.remove({tID: tournamentID});
         
-
+        //remove the tournament
         Tournaments.remove(tournamentID);
     },
     
@@ -125,20 +128,23 @@ Meteor.methods({
             username: Meteor.user().username,
         });
         
-        var t = Tournaments.findOne({_id: tID});
-        t.matches.push(mID);
+        //Add match to its tournament
+//        Tournaments.update(
+//                {
+//                    _id: tID
+//                },
+//                {
+//                    $addToSet: {matches: mID}
+//                }
+//        );
         
     },
     'matches.remove'(matchId){
         check(matchId, String);
+        
         Matches.remove(matchId);
     },
-    'matches.setChecked'(matchId, setChecked){
-        check(matchId, String);
-        check(setChecked, Boolean);
-        
-        Matches.update(matchId, { $set: { checked: setChecked } });
-    }, 
+    
     'teams.insert'(team, tID, players) {
         check(team, String);
         
@@ -156,16 +162,30 @@ Meteor.methods({
             username: Meteor.user().username,
         });
         
+        console.log(Tournaments.findOne({_id: tID}));
         Tournaments.findOne({_id: tID}).matches.push(teamID);
     },
-    'teams.remove'(team){
-        check(team, String);
+    'teams.remove'(teamID){
+        check(teamID, String);
         
         if(! Meteor.userId()){
             throw new Meteor.Error('unauthorized',
               'Not logged in.');
         }
         
-        Teams.remove(team);
+        //Remove all matches with that team
+        Matches.remove({
+            $or:[
+                {
+                    t1: teamID
+                },
+                {
+                    t2: teamID
+                }
+            ]
+        });
+        
+        //Remove team
+        Teams.remove(teamID);
     },
 });
