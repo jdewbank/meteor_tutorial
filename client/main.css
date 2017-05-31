@@ -94,11 +94,7 @@ form {
   position: relative;
 }
 
-ul {
-  margin: 0;
-  padding: 0;
-  background: white;
-}
+
  
 .delete {
   float: right;
@@ -109,6 +105,12 @@ ul {
   position: relative;
 }
  
+ul {
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+
 li {
   position: relative;
   list-style: none;
@@ -161,8 +163,6 @@ table.match-entry tr:hover {background-color: inherit}
     float: left;
 }
 
-.score-box{
-}
 
 input[type="number"]{
     width: 40px;
