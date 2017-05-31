@@ -162,7 +162,6 @@ Meteor.methods({
             username: Meteor.user().username,
         });
         
-        console.log(Tournaments.findOne({_id: tID}));
         Tournaments.findOne({_id: tID}).matches.push(teamID);
     },
     'teams.remove'(teamID){

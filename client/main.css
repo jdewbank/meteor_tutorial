@@ -133,7 +133,6 @@ th, td {
     text-align: center;
 }
 
-
 tr:nth-child(even) {background-color: #F5F5F5}
 
 tr:hover {background-color: #AFEEEE}
@@ -143,15 +142,28 @@ th {
     color: white;
 }
 
-/*.new-team {
-  margin: 0 auto;
-}*/
+table.match-entry{
+    width: 90%;
+}
+
+table.match-entry tr:nth-child(even) {background-color: inherit}
+table.match-entry tr:hover {background-color: inherit}
 
 .new-tournament {
   margin-left: 10px;
 }
 
-.new-match {
-  margin-left: 10px;
+.match-teams {
+    float: none;
 }
 
+.match-team{
+    float: left;
+}
+
+.score-box{
+}
+
+input[type="number"]{
+    width: 40px;
+}
