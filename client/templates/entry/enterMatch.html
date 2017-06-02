@@ -47,22 +47,52 @@
                 
                 <tr>
                     <td>
-                        <ul>
+                        <table class="individual-stat-table">
+                            <th>
+                                Player
+                            </th>
+                            <th>
+                                TUH
+                            </th>
+                            <th>
+                                15
+                            </th>
+                            <th>
+                                10
+                            </th>
+                            <th>
+                                -5
+                            </th>
                             {{#each players 1}}
-                                <li>
-                                    {{this}}
-                                </li>
-                            {{/each}}
-                        </ul>
+                                <tr>
+                                    {{> playerAnswerCount}}
+                                </tr>
+                            {{/each}}   
+                        </table>
                     </td>
                     <td>
-                        <ul>
+                        <table class="individual-stat-table">
+                            <th>
+                                Player
+                            </th>
+                            <th>
+                                TUH
+                            </th>
+                            <th>
+                                15
+                            </th>
+                            <th>
+                                10
+                            </th>
+                            <th>
+                                -5
+                            </th>
                             {{#each players 2}}
-                                <li>
-                                    {{this}}
-                                </li>
-                            {{/each}}
-                        </ul>                        
+                                <tr>
+                                    {{> playerAnswerCount}}
+                                </tr>
+                            {{/each}}   
+                        </table>                      
                     </td>
                 </tr>
 

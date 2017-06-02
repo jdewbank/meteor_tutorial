@@ -151,6 +151,11 @@ table.match-entry{
 table.match-entry tr:nth-child(even) {background-color: inherit}
 table.match-entry tr:hover {background-color: inherit}
 
+table.individual-stat-table {
+    width: 90%;
+}
+
+
 .new-tournament {
   margin-left: 10px;
 }
@@ -162,7 +167,6 @@ table.match-entry tr:hover {background-color: inherit}
 .match-team{
     float: left;
 }
-
 
 input[type="number"]{
     width: 40px;
