@@ -42,6 +42,10 @@ Template.enterMatch.events({
         // Prevent default browser form submit
         event.preventDefault();
 
+        console.log(event);
+        var t1Players = Teams.findOne({_id: Session.get('team1ID')}).players;
+        console.log(t1Players);
+
         // Get value from form element
         const target = event.target;
         const rd = target.round.value;
@@ -49,6 +53,18 @@ Template.enterMatch.events({
         const t2 = target.team2.value;
         const s1 = target.score1.value;
         const s2 = target.score2.value;
+        
+        var i;
+        for(i = 4;i < 4+(4*t1Players.length); ){
+            console.log((t1Players[i/4 - 1]) + " got");
+            console.log(target[i++].value);
+            console.log(target[i++].value);
+            console.log(target[i++].value);
+            console.log(target[i++].value);
+            console.log("next");
+        }
+        
+        
         tID = Session.get('tID');
 
         // Insert a task into the collection

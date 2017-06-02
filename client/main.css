@@ -145,7 +145,7 @@ th {
 }
 
 table.match-entry{
-    width: 90%;
+    width: 100%;
 }
 
 table.match-entry tr:nth-child(even) {background-color: inherit}
