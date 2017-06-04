@@ -4,23 +4,24 @@
     <!--<input type="checkbox" checked="{{checked}}" class="toggle-checked" />-->
  
     <td>
-        <span class="text">{{rd}}</span>
+        <span class="text">{{round}}</span>
         <button class="delete">&times;</button>
     </td>
     <td>
-    	<span class="text">{{getTeamFromId(t1)}}</span>
+    	<span class="text">{{getTeamFromId(match_teams.[0].team)}}</span>
     </td>
     <td>
-    	<span class="text">{{s1}}</span>
+    	<span class="text">{{match_teams.[0].points}}</span>
     </td>
     <td>
     	<span class="text">vs.</span>
     </td>
     <td>
-    	<span class="text">{{getTeamFromId(t2)}}</span>
+    	<span class="text">{{getTeamFromId(match_teams.[1].team)}}</span>
     </td>
     <td>
-    	<span class="text">{{s2}}</span>
+    	<span class="text">{{match_teams.[1].points}}</span>
+        
     </td>
 
   </tr>

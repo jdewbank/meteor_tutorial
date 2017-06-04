@@ -6,6 +6,7 @@ import { Roles } from 'meteor/alanning:roles';
 export const Matches = new Mongo.Collection('matches');
 export const Teams = new Mongo.Collection('teams'); 
 export const Tournaments = new Mongo.Collection('tournaments'); 
+export const Players = new Mongo.Collection('players'); 
 
 if (Meteor.isServer) {
     // This code only runs on the server
@@ -17,6 +18,9 @@ if (Meteor.isServer) {
     });
     Meteor.publish('tournaments', function tournamentsPublication() {
         return Tournaments.find();
+    });
+    Meteor.publish('players', function playersPublication() {
+        return Players.find();
     });
     Meteor.publish('roles', function (){
         return Meteor.roles.find();
@@ -105,28 +109,20 @@ Meteor.methods({
         Tournaments.remove(tournamentID);
     },
     
-    'matches.insert'(rd, t1, s1, t2, s2, tID) {
-        check(t1, String);
-        check(t2, String);
-        
+    'matches.insert'(rd, match, tournamentID) {
         
         if(! Meteor.userId()){
           throw new Meteor.Error('unauthorized',
             'Not logged in.');
         }
         
+        match.rount = rd;
+        match.tournamentID = tournamentID;
+        match.createdAt = new Date();
+        match.username = Meteor.user().username;
         
-        var mID = Matches.insert({
-            rd,
-            t1,
-            s1,
-            t2,
-            s2,
-            tID,
-            createdAt: new Date(),
-            owner: Meteor.userId(),
-            username: Meteor.user().username,
-        });
+        
+        var matchID = Matches.insert(match);
         
         //Add match to its tournament
 //        Tournaments.update(
@@ -145,12 +141,22 @@ Meteor.methods({
         Matches.remove(matchId);
     },
     
-    'teams.insert'(team, tID, players) {
+    'teams.insert'(team, tID, playerNames) {
         check(team, String);
         
         if(! Meteor.userId()){
             throw new Meteor.Error('unauthorized',
               'Not logged in.');
+        }
+        
+        var players = [];
+        
+        var i;
+        for(i = 0; i < playerNames.length; ++i){
+            var playerID = Players.insert({
+                playerName: playerNames[i],
+            });
+            players.push(playerID);
         }
         
         var teamID = Teams.insert({
