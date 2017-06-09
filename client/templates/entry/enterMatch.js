@@ -110,9 +110,11 @@ Template.enterMatch.events({
         var match = {}
         match.type = "Match";
         match.match_teams = [matchTeam1, matchTeam2];
+        match.round = rd;
+
 
         // Insert a match into the collection
-        Meteor.call('matches.insert', rd, match, tID);
+        Meteor.call('matches.insert', match, tID);
 
         // Clear form
         target.round.value = '';

@@ -109,14 +109,13 @@ Meteor.methods({
         Tournaments.remove(tournamentID);
     },
     
-    'matches.insert'(rd, match, tournamentID) {
+    'matches.insert'(match, tournamentID) {
         
         if(! Meteor.userId()){
           throw new Meteor.Error('unauthorized',
             'Not logged in.');
         }
         
-        match.rount = rd;
         match.tournamentID = tournamentID;
         match.createdAt = new Date();
         match.username = Meteor.user().username;
