@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import { Session } from 'meteor/session';
 
 import { Matches } from '/imports/api/api.js';
 import { Teams } from '/imports/api/api.js';
@@ -9,10 +8,19 @@ import './teamTab.html';
 
 Template.teams.helpers({
     teams() {
-        return Teams.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
+      
+        var currentTournamentID = 0;
+        if(Meteor.user()){
+            currentTournamentID = Meteor.user().profile.current_tournament;
+        }
+        return Teams.find({tID: currentTournamentID}, { sort: { createdAt: -1 } } );  
     },
     teamCount() {
-        return Teams.find({tID: Session.get('tID')}).count();
+        var currentTournamentID = 0;
+        if(Meteor.user()){
+            currentTournamentID = Meteor.user().profile.current_tournament;
+        }
+        return Teams.find({tID: currentTournamentID}).count();
     },
     
 });

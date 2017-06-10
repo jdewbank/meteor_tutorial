@@ -1,0 +1,21 @@
+<!--results tab-->
+<template name="results">
+    <div id="results-container" class="tabcontent">
+        <header>
+            <h1>Results</h1>
+        </header>
+        &nbsp;
+        <table style="width:100%" align="center">
+            <tr>
+                <th>Team Name</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>%</th>
+            </tr>
+            {{#each results}}
+                {{> team}}
+            {{/each}}
+        </table>
+    </div>
+</template>

@@ -26,7 +26,7 @@ Template.enterTeam.events({
     var players = [target[1].value, target[2].value, target[3].value, target[4].value];
     
     // Insert a task into the collection
-    Meteor.call('teams.insert', name, Session.get('tID'), players);
+    Meteor.call('teams.insert', name, Meteor.user().profile.current_tournament, players);
  
     // Clear form
     for (i=1; i<=4; i+=1)

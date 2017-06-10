@@ -40,6 +40,15 @@ Template.registerHelper( 'admin', () => {
         return Roles.userIsInRole(Meteor.userId(), ['admin']);
 }); 
 
+Template.registerHelper( 'teams', () => {
+        var currentTournamentID = 0;
+        if(Meteor.user()){
+            currentTournamentID = Meteor.user().profile.current_tournament;
+        }
+        console.log("TEST HELPER MAIN");
+        return Teams.find({tID: currentTournamentID}, { sort: { createdAt: -1 } } );
+});
+
  
 Template.admin.helpers({
     users() {
@@ -77,7 +86,6 @@ Template.tournaments.onRendered(function(){
     if(Meteor.user()){
         var currentTournamentID = Meteor.user().profile.current_tournament;
         var button = this.find('input[id=' + currentTournamentID + ']');
-        console.log(button);
         button.checked = true;
         
     } else {
@@ -86,7 +94,6 @@ Template.tournaments.onRendered(function(){
             if(Meteor.user()){
                 var currentTournamentID = Meteor.user().profile.current_tournament;
                 var button = template.find('input[id=' + currentTournamentID + ']');
-                console.log(button);
                 button.checked = true;
             }
         }, 800);

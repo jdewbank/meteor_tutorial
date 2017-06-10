@@ -13,7 +13,7 @@ Template.team.events({
 
 Template.team.helpers({
    pct(id) {
-    /this helper gives the percentage win-loss, counting ties as half a win/
+//    this helper gives the percentage win-loss, counting ties as half a win
        
         var total = 0;
         var wins = 0;
@@ -41,7 +41,7 @@ Template.team.helpers({
            
    },
    wins(id) {
-    /this helper gives the total number of wins (not counting ties)/
+//    /this helper gives the total number of wins (not counting ties)/
        
         var total = 0;
         var wins = 0;
@@ -66,7 +66,7 @@ Template.team.helpers({
         return (wins);           
    },
    ties(id) {
-    /this helper gives the number of ties only/
+//    /this helper gives the number of ties only/
        
         var total = 0;
         var ties = 0;
@@ -89,7 +89,7 @@ Template.team.helpers({
         return ties;      
    },
    losses(id) {
-    /this helper gives the number of losses by subtracting the number of wins from the total/
+//    /this helper gives the number of losses by subtracting the number of wins from the total/
        
         var total = 0;
         var wins = 0;
