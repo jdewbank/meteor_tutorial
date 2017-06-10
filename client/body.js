@@ -22,6 +22,7 @@ Template.body.onCreated(function bodyOnCreated() {
     Meteor.subscribe('teams');
     Meteor.subscribe('roles');
     Meteor.subscribe('users');
+    Meteor.subscribe('players');
 });
  
 Template.registerHelper( 'tournamentPermission', () => {

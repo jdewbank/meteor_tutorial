@@ -9,10 +9,10 @@ import './matchTab.html';
 
 Template.matches.helpers({
     matches() {
-        return Matches.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );
+        return Matches.find({tournamentID: Session.get('tID')}, { sort: { createdAt: -1 } } );
     },
     matchCount() {
-        return Matches.find({tID: Session.get('tID')}).count();
+        return Matches.find({tournamentID: Session.get('tID')}).count();
     },
     teams() {
         return Teams.find({tID: Session.get('tID')}, { sort: { createdAt: -1 } } );

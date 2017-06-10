@@ -94,11 +94,7 @@ form {
   position: relative;
 }
 
-ul {
-  margin: 0;
-  padding: 0;
-  background: white;
-}
+
  
 .delete {
   float: right;
@@ -109,6 +105,12 @@ ul {
   position: relative;
 }
  
+ul {
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+
 li {
   position: relative;
   list-style: none;
@@ -133,7 +135,6 @@ th, td {
     text-align: center;
 }
 
-
 tr:nth-child(even) {background-color: #F5F5F5}
 
 tr:hover {background-color: #AFEEEE}
@@ -143,15 +144,30 @@ th {
     color: white;
 }
 
-/*.new-team {
-  margin: 0 auto;
-}*/
+table.match-entry{
+    width: 100%;
+}
+
+table.match-entry tr:nth-child(even) {background-color: inherit}
+table.match-entry tr:hover {background-color: inherit}
+
+table.individual-stat-table {
+    width: 90%;
+}
+
 
 .new-tournament {
   margin-left: 10px;
 }
 
-.new-match {
-  margin-left: 10px;
+.match-teams {
+    float: none;
 }
 
+.match-team{
+    float: left;
+}
+
+input[type="number"]{
+    width: 40px;
+}
