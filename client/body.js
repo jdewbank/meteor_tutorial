@@ -26,7 +26,11 @@ Template.body.onCreated(function bodyOnCreated() {
 });
  
 Template.registerHelper( 'tournamentPermission', () => {
-        var tournament = Tournaments.findOne({_id : Session.get('tID')});
+    
+        
+        var currentTournamentID = Meteor.user().profile.current_tournament;
+    
+        var tournament = Tournaments.findOne({_id : currentTournamentID});
         if(!tournament)
             return false;
         return Roles.userIsInRole(Meteor.userId(), 'editor', tournament._id);
@@ -66,6 +70,32 @@ Template.admin.helpers({
     },
 });
 
+Template.tournaments.onRendered(function(){
+    
+    //On initial rendering, sometimes the user doesn't get logged on until
+    //after the check. Need to make this better.
+    if(Meteor.user()){
+        var currentTournamentID = Meteor.user().profile.current_tournament;
+        var button = this.find('input[id=' + currentTournamentID + ']');
+        console.log(button);
+        button.checked = true;
+        
+    } else {
+        var template = this;
+        Meteor.setTimeout(function(){
+            if(Meteor.user()){
+                var currentTournamentID = Meteor.user().profile.current_tournament;
+                var button = template.find('input[id=' + currentTournamentID + ']');
+                console.log(button);
+                button.checked = true;
+            }
+        }, 800);
+        
+    }
+});
+
+
+
 Template.tournaments.helpers({
     tournaments() {
         return Tournaments.find({}, { sort: { createdAt: -1 } } );
@@ -73,14 +103,15 @@ Template.tournaments.helpers({
 });
 
 
-
-
- 
-
-
 Template.tournaments.events({
-    'change .tournaments'(event){
-        Session.set('tID', event.target.value);
+    'change .tournaments'(event){        
+        Meteor.users.update(
+                {_id: Meteor.userId()},
+                {$set: 
+                    {'profile.current_tournament': event.target.value}
+                }
+        );        
+        
     },
     'submit .new-tournament'(event) {
         // Prevent default browser form submit
@@ -92,7 +123,7 @@ Template.tournaments.events({
 
         // Insert a task into the collection
         Meteor.call('tournaments.insert', tournament, function(error, result){
-            Session.set('tID', result);
+            Session.set('current_tournament_id', result);
         });
 
         target.tournament.value = '';

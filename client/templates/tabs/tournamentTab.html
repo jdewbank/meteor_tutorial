@@ -23,7 +23,7 @@
             <ul>
             {{#each tournaments}}
                 <li>
-                <input class="tournaments" type="radio" name="tournament" value="{{_id}}"> {{title}}
+                <input class="tournaments" type="radio" name="tournament" value="{{_id}}" id="{{_id}}"> {{title}}
                 <button class="delete" id="tournamentDelete" value="{{_id}}">&times;</button><br>
                 </li>
             {{/each}}
